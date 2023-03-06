@@ -10,14 +10,15 @@ class Span
 private:
 	Span(void);
 	unsigned int N;
-	std::vector<int> v;
+	std::vector<long int> v;
 public:
 	Span(unsigned int n);
 	~Span(void);
 	Span& operator=(const Span & other);
 	Span(const Span& copy);
 
-	void addNumber(unsigned int n);
+	void addNumber(int n);
+	void addNumber(std::vector<int>::iterator first, std::vector<int>::iterator last);
 	long int shortestSpan();
 	long long int longestSpan();
 

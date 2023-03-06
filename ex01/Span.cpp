@@ -24,20 +24,28 @@ Span::Span(const Span &copy): N(copy.N), v(copy.v)
 	//std::cout << "Span copy constructor called" << std::endl;
 }
 
-void Span::addNumber(unsigned int n)
+void Span::addNumber(int n)
 {
 	if (v.size() == N)
     	throw MaxElements();
     v.push_back(n);
 }
 
+void Span::addNumber(std::vector<int>::iterator first, std::vector<int>::iterator last)
+{
+    if (v.size() + (unsigned int)(last - first) - 1 >= N)
+        throw MaxElements();
+    for (;first != last; first++)
+        v.push_back(*first);
+}
+
 long int Span::shortestSpan()
 {	
 	if (v.size() < 2)
     	throw MinElements();
-    std::vector<int> sortedVec(v);
+    std::vector<long int> sortedVec(v);
     std::sort(sortedVec.begin(), sortedVec.end());
-    int i = 1;
+    long int i = 1;
     int size = sortedVec.size();
     long int res;
     res = sortedVec[i] - sortedVec[i - 1];
@@ -54,9 +62,9 @@ long long int Span::longestSpan()
 {
 	if (v.size() < 2)
     	throw MinElements();
-    std::vector<int> sortedVec(v);
+    std::vector<long int> sortedVec(v);
     std::sort(sortedVec.begin(), sortedVec.end());
     int size = sortedVec.size() - 1;
-    long int res = sortedVec[0] - sortedVec[size];
-    return (res * -1);
+    long int res = sortedVec[size] - sortedVec[0];
+    return (res);
 }
